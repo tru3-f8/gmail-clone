@@ -42,3 +42,7 @@ color: grey;
     display: flex;
     padding-right: 20px;
 }
+
+.header_avatar {
+  cursor: pointer;
+}

@@ -43,7 +43,7 @@ const Header = () => {
         <IconButton>
           <NotificationsIcon />
         </IconButton>
-        <Avatar onClick={signOut} src={user?.photoUrl} />
+        <Avatar onClick={signOut} src={user?.photoUrl} className='header_avatar'/>
       </div>
     </div>
   );
