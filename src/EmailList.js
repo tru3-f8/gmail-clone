@@ -6,15 +6,32 @@ import SettingsIcon from '@material-ui/icons/Settings';
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
 import ChevronRightIcon from '@material-ui/icons/ChevronRight';
 import KeyboardHideIcon from '@material-ui/icons/KeyboardHide';
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import Section from './Section';
 import InboxIcon from '@material-ui/icons/Inbox';
 import PeopleIcon from '@material-ui/icons/People';
 import LocalOfficeIcon from '@material-ui/icons/LocalOffer';
 import './EmailList.css';
 import EmailRow from './EmailRow';
+import { db } from './firebase';
+
 
 const EmailList = () => {
+  const [emails, setEmails] = useState([]);
+
+  useEffect(() => {
+    db.collection('emails')
+      .orderBy('timestamp', 'desc')
+      .onSnapshot((snapshot) =>
+        setEmails(
+          snapshot.docs.map((doc) => ({
+            id: doc.id,
+            data: doc.data(),
+          }))
+        )
+      );
+  }, []);
+
   return (
     <div class='emailList'>
       <div className='emailList_settings'>
@@ -51,18 +68,18 @@ const EmailList = () => {
         <Section Icon={LocalOfficeIcon} title='Promotions' color='green' />
       </div>
       <div className='emailList_list'>
-        <EmailRow
-          title='Twitch'
-          subject='Hey fellow streamer'
-          description='Thi is a test'
-          time='10pm'
-        />
-         <EmailRow
-          title='Twitch'
-          subject='Hey fellow streamerrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrr'
-          description='Thi is a test'
-          time='10pm'
-        />
+        {emails.map(({ id, data: { to, subject, message, timestamp }}) => (
+          <EmailRow 
+          id={id}
+          //The key helps with rendering new data without rendering the whole list of data
+          key={id}
+          title={to}
+          subject={subject}
+          description={message}
+          time={new Date(timestamp?.seconds * 1000).toUTCString()}
+          />
+        ) 
+        )}
       </div>
     </div>
   );
