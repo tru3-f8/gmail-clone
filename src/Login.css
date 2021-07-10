@@ -8,11 +8,13 @@
 .login_container {
   display: flex;
   flex-direction: column;
+  width: 420px;
 }
 
 .login_container > img {
   object-fit: contain;
   height: 200px;
+  padding-bottom: 20px;
 }
 
 .login_signInButton {
@@ -44,5 +46,19 @@
   align-items: center;
   justify-content: center;
   margin-left: 150px;
-  margin-bottom: 30px;
+  margin-bottom: 25px;
+}
+
+.login_OR {
+  padding-top: 30px;
+  padding-left: 40px;
+}
+
+.login_description {
+  margin-top: -10px;
+}
+
+.login_description > div {
+  padding-top: 10px;
+  font-size: 15px;
 }

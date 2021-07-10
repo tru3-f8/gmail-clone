@@ -11,7 +11,7 @@ const Login = () => {
   const history = useHistory();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  
+
   const signIn = () => {
     auth
       .signInWithPopup(provider)
@@ -31,10 +31,10 @@ const Login = () => {
     e.preventDefault();
 
     auth.signInWithEmailAndPassword(email, password)
-    .then((auth) => {
+      .then((auth) => {
         history.push('/');
-    })
-    .catch(error => alert(error.message))
+      })
+      .catch(error => alert(error.message))
 
   };
 
@@ -45,6 +45,10 @@ const Login = () => {
           src='https://static.dezeen.com/uploads/2020/10/gmail-google-logo-rebrand-workspace-design_dezeen_2364_col_0.jpg'
           alt=''
         />
+        <Button variant='contained' color='primary' onClick={signIn}>
+          Login with Google Account
+        </Button>
+        <h3 className='login_OR'>OR</h3>
         <form>
           <h5>E-mail</h5>
           <input
@@ -64,10 +68,11 @@ const Login = () => {
             Sign In
           </Button>
         </form>
-        <h3>OR</h3>
-        <Button variant='contained' color='primary' onClick={signIn}>
-          Login with Google Account
-        </Button>
+        <div className='login_description'>
+          <h6>If you don't feel comfortable using your Google account to login, you can use the local account below.</h6>
+          <div>Username: test@gmail.com</div>
+          <div>Password: welcome1</div>
+        </div>
       </div>
     </div>
   );
